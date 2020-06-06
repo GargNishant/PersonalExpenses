@@ -42,7 +42,7 @@ class TransWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  DateFormat('yyyy-MM-dd hh:mm:ss').format(trans.timeStamp),
+                  DateFormat.yMEd().format(trans.timeStamp),
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
