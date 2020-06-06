@@ -11,10 +11,10 @@ class TransWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(
+            width: 80,
+            height: 40,
             padding: EdgeInsets.all(5),
             alignment: Alignment.center,
             decoration: BoxDecoration(
