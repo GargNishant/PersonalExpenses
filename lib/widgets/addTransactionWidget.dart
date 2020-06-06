@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 class AddTransaction extends StatelessWidget{
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+  final Function function;
+
+  AddTransaction(this.function);
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +28,8 @@ class AddTransaction extends StatelessWidget{
             FlatButton(
               child: Text("Add Transaction"),
               textColor: Colors.purple,
-              onPressed: () {
-                print(titleController.text);
-                print(amountController.text);
+              onPressed: () { // Using Anonymous Function here, as this Widget contains the Params which has to be passed. Unlike FlutterGuide, which has params that needs to be passed in diff class
+                function(title:titleController.text,amount:double.tryParse(amountController.text));
               },
             ),
           ],

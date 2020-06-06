@@ -1,16 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:personalexpenses/models/transaction.dart';
 import 'package:personalexpenses/widgets/addTransactionWidget.dart';
-import 'package:personalexpenses/widgets/transactionWidget.dart';
+import 'package:personalexpenses/widgets/transactionList.dart';
 
-class UserTransaction extends StatefulWidget{
+class UserTransaction extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _UserTransactionState();
 }
 
-class _UserTransactionState extends State<UserTransaction>{
-  final List<Transaction> trans = [
+class _UserTransactionState extends State<UserTransaction> {
+  final List<Transaction> _transactions = [
     Transaction(
         id: "t1",
         title: "New Shoes",
@@ -35,14 +34,24 @@ class _UserTransactionState extends State<UserTransaction>{
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        AddTransaction(),
-        Column(
-          children: trans.map((tx) {
-            return TransWidget(tx);
-          }).toList(),
-        ),
+        AddTransaction(_addNewTransaction),
+        TransactionList(_transactions),
       ],
     );
   }
 
+  void _addNewTransaction({String title, double amount}) {
+    final newTx = Transaction(
+        title: title,
+        amount: amount,
+        timeStamp: DateTime.now(),
+        description: "Newly Added",
+        id: DateTime.now().toString());
+    
+    setState(() {
+      _transactions.add(newTx);
+    });
+  }
+  
+  
 }

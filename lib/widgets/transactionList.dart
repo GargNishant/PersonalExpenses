@@ -4,7 +4,9 @@ import 'package:personalexpenses/models/transaction.dart';
 import 'package:personalexpenses/widgets/transactionWidget.dart';
 
 class TransactionList extends StatelessWidget{
-  final List<Transaction> transactions = List();
+  final List<Transaction> transactions;
+
+  TransactionList(this.transactions);
 
   @override
   Widget build(BuildContext context) {
