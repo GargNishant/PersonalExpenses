@@ -24,8 +24,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Flutter App'),),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -36,9 +35,10 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
           ),
-          Card(
-            child: Text("List of Texts",),
-            elevation: 5,
+          Column(children: trans.map((tx){
+            return Text(tx.title);
+          }).toList(),
+            mainAxisAlignment: MainAxisAlignment.start,
           )
         ],
       ),
