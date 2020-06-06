@@ -1,0 +1,12 @@
+import 'package:flutter/foundation.dart';
+
+class Transaction{
+  final String id;
+  final double amount;
+  final String title;
+  final String description;
+  final DateTime timeStamp;
+
+  Transaction({@required this.id,@required this.amount,@required this.title,
+    @required this.description,@required this.timeStamp});
+}
