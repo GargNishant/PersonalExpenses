@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personalexpenses/transWidget.dart';
-import './transaction.dart';
+import 'package:personalexpenses/widgets/userTransaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,29 +14,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> trans = [
-    Transaction(
-        id: "t1",
-        title: "New Shoes",
-        amount: 19.99,
-        description: "Bought new Shoes",
-        timeStamp: DateTime.now()),
-    Transaction(
-        id: "t2",
-        title: "New Phone",
-        amount: 199.9,
-        description: "Bought new Gadget",
-        timeStamp: DateTime.now()),
-    Transaction(
-        id: "t3",
-        title: "New Laptop",
-        amount: 9.99,
-        description: "Bought new Gadget",
-        timeStamp: DateTime.now()),
-  ];
-
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,38 +34,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
           ),
-          Card(
-            elevation: 5,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(labelText: "Title"),
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: "Amount", prefixText: "\$ "),
-                    controller: amountController,
-                  ),
-                  FlatButton(
-                    child: Text("Add Transaction"),
-                    textColor: Colors.purple,
-                    onPressed: () {
-                      print(titleController.text);
-                      print(amountController.text);
-                    },
-                  )
-                ],
-              ),
-            ),
-          ),
-          Column(
-            children: trans.map((tx) {
-              return TransWidget(tx);
-            }).toList(),
-          )
+          UserTransaction(),
         ],
       ),
     );

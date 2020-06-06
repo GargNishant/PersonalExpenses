@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personalexpenses/transaction.dart';
+import 'package:personalexpenses/models/transaction.dart';
 import 'package:intl/intl.dart';
 
 class TransWidget extends StatelessWidget {
@@ -40,7 +40,6 @@ class TransWidget extends StatelessWidget {
                   trans.title.toString(),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                SizedBox(height: 5),
                 Text(
                   DateFormat.yMEd().format(trans.timeStamp),
                   style: TextStyle(color: Colors.grey),
