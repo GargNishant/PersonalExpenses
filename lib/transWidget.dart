@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personalexpenses/transaction.dart';
+import 'package:intl/intl.dart';
 
 class TransWidget extends StatelessWidget {
   final Transaction trans;
@@ -21,7 +22,7 @@ class TransWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: Text(
-              trans.amount.toString(),
+              "\$${trans.amount}",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -41,7 +42,7 @@ class TransWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  trans.timeStamp.toString(),
+                  DateFormat('yyyy-MM-dd hh:mm:ss').format(trans.timeStamp),
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
