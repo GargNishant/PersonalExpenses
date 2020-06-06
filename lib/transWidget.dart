@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:personalexpenses/transaction.dart';
+
+class TransWidget extends StatelessWidget {
+  final Transaction trans;
+
+  TransWidget(this.trans);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(5),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.purple, width: 1),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Text(
+              trans.amount.toString(),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.purple),
+            ),
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  trans.title.toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  trans.timeStamp.toString(),
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
