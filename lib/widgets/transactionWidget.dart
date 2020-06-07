@@ -22,7 +22,7 @@ class TransWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: Text(
-              "\$${trans.amount}",
+              "\$${trans.amount.toStringAsFixed(2)}",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
