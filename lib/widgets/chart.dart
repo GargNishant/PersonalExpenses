@@ -41,16 +41,22 @@ class ChartWidget extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(20),
       child: recentTransaction.isNotEmpty
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: groupTransactionsValues.map((tx) {
-                return ChartBar(
-                    label: tx['day'],
-                    amountSpent: tx['amount'],
-                    amountPercent: maxSpending == 0.0
-                        ? 0.0
-                        : (tx['amount'] as double) / maxSpending);
-              }).toList())
+          ? Padding(
+              padding: EdgeInsets.all(5),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: groupTransactionsValues.map((tx) {
+                    return Flexible(
+                      fit: FlexFit.tight,
+                      child: ChartBar(
+                          label: tx['day'],
+                          amountSpent: tx['amount'],
+                          amountPercent: maxSpending == 0.0
+                              ? 0.0
+                              : (tx['amount'] as double) / maxSpending),
+                    );
+                  }).toList()),
+            )
           : Container(),
     );
   }

@@ -18,14 +18,17 @@ class TransWidget extends StatelessWidget {
             padding: EdgeInsets.all(5),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              border: Border.all(color:Theme.of(context).primaryColorLight,width: 1.2),
+              border: Border.all(
+                  color: Theme.of(context).primaryColorLight, width: 1.2),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Text(
-              "\$${trans.amount.toStringAsFixed(2)}",
+              trans.amount < 1000
+                  ? "\$${trans.amount.toStringAsFixed(2)}"
+                  : "\$${(trans.amount / 1000).toStringAsFixed(2)}k",
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
                 color: Theme.of(context).primaryColorDark,
               ),
             ),
