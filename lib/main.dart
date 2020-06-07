@@ -10,8 +10,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Personal Expenses',
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        accentColor: Colors.amber,
+        accentColorBrightness: Brightness.dark,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          headline6: TextStyle(fontFamily: "OpenSans", fontSize: 16,fontWeight: FontWeight.bold),
+        ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(fontFamily: "OpenSans", fontSize: 20),
+              ),
+        ),
+      ),
     );
   }
 }
@@ -23,24 +37,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    Transaction(
-        id: "t1",
-        title: "New Shoes",
-        amount: 19.99,
-        description: "Bought new Shoes",
-        timeStamp: DateTime.now()),
-    Transaction(
-        id: "t2",
-        title: "New Phone",
-        amount: 199.9,
-        description: "Bought new Gadget",
-        timeStamp: DateTime.now()),
-    Transaction(
-        id: "t3",
-        title: "New Laptop",
-        amount: 9.99,
-        description: "Bought new Gadget",
-        timeStamp: DateTime.now()),
+//    Transaction(
+//        id: "t1",
+//        title: "New Shoes",
+//        amount: 19.99,
+//        description: "Bought new Shoes",
+//        timeStamp: DateTime.now()),
+//    Transaction(
+//        id: "t2",
+//        title: "New Phone",
+//        amount: 199.9,
+//        description: "Bought new Gadget",
+//        timeStamp: DateTime.now()),
+//    Transaction(
+//        id: "t3",
+//        title: "New Laptop",
+//        amount: 9.99,
+//        description: "Bought new Gadget",
+//        timeStamp: DateTime.now()),
   ];
 
   @override
@@ -63,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 width: double.infinity,
                 child: Card(
-                  color: Colors.amber,
                   elevation: 5,
                   child: Text(
                     "Chart Text",
@@ -92,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
           onTap: () {},
           behavior: HitTestBehavior.opaque,
           child: AddTransaction(_addNewTransaction),
-
         );
       },
     );
