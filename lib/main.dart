@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:personalexpenses/models/transaction.dart';
 import 'package:personalexpenses/widgets/addTransactionWidget.dart';
+import 'package:personalexpenses/widgets/chart.dart';
 import 'package:personalexpenses/widgets/transactionList.dart';
 
 void main() => runApp(MyApp());
@@ -18,8 +19,11 @@ class MyApp extends StatelessWidget {
         accentColorBrightness: Brightness.dark,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-          headline6: TextStyle(fontFamily: "OpenSans", fontSize: 16,fontWeight: FontWeight.bold),
-        ),
+              headline6: TextStyle(
+                  fontFamily: "OpenSans",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(fontFamily: "OpenSans", fontSize: 20),
@@ -57,6 +61,13 @@ class _MyHomePageState extends State<MyHomePage> {
 //        timeStamp: DateTime.now()),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((element) {
+      return element.timeStamp
+          .isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,18 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              child: Container(
-                width: double.infinity,
-                child: Card(
-                  elevation: 5,
-                  child: Text(
-                    "Chart Text",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ),
+            ChartWidget(_recentTransactions),
             TransactionList(_transactions),
           ],
         ),
