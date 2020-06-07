@@ -10,48 +10,32 @@ class TransWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 80,
-            height: 40,
-            padding: EdgeInsets.all(5),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: Theme.of(context).primaryColorLight, width: 1.2),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Text(
-              trans.amount < 1000
-                  ? "\$${trans.amount.toStringAsFixed(2)}"
-                  : "\$${(trans.amount / 1000).toStringAsFixed(2)}k",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Theme.of(context).primaryColorDark,
+      margin: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+      elevation: 4,
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundColor: Theme.of(context).primaryColorLight,
+          foregroundColor: Theme.of(context).primaryColorDark,
+          child: Padding(
+            padding: const EdgeInsets.all(2),
+            child: FittedBox(
+              child: Text(
+                trans.amount < 1000
+                    ? "\$${trans.amount.toStringAsFixed(1)}"
+                    : "\$${(trans.amount / 1000).toStringAsFixed(1)}k",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
             ),
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  trans.title.toString(),
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Text(
-                  DateFormat.yMEd().format(trans.timeStamp),
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
+        title: Text(trans.title.toString(), style: Theme.of(context).textTheme.headline6,),
+        subtitle: Text(
+          DateFormat.yMMMMd().format(trans.timeStamp)
+        ),
       ),
     );
   }
