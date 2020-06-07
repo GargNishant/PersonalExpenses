@@ -18,7 +18,7 @@ class TransWidget extends StatelessWidget {
             padding: EdgeInsets.all(5),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.purple, width: 1),
+              border: Border.all(color:Theme.of(context).primaryColorLight,width: 1.2),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Text(
@@ -26,7 +26,8 @@ class TransWidget extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.purple),
+                color: Theme.of(context).primaryColorDark,
+              ),
             ),
             margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           ),
@@ -38,7 +39,7 @@ class TransWidget extends StatelessWidget {
               children: <Widget>[
                 Text(
                   trans.title.toString(),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
                   DateFormat.yMEd().format(trans.timeStamp),
