@@ -45,26 +45,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
-//    Transaction(
-//        id: "t1",
-//        title: "New Shoes",
-//        amount: 19.99,
-//        description: "Bought new Shoes",
-//        timeStamp: DateTime.now()),
-//    Transaction(
-//        id: "t2",
-//        title: "New Phone",
-//        amount: 199.9,
-//        description: "Bought new Gadget",
-//        timeStamp: DateTime.now()),
-//    Transaction(
-//        id: "t3",
-//        title: "New Laptop",
-//        amount: 9.99,
-//        description: "Bought new Gadget",
-//        timeStamp: DateTime.now()),
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((element) {
@@ -90,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             ChartWidget(_recentTransactions),
-            TransactionList(_transactions),
+            TransactionList(_transactions,_deleteTransaction),
           ],
         ),
       ),
@@ -115,16 +96,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _addNewTransaction({String title, double amount}) {
+  void _addNewTransaction({@required String title, @required double amount,@required DateTime selectedDate}) {
     final newTx = Transaction(
         title: title,
         amount: amount,
-        timeStamp: DateTime.now(),
+        timeStamp: selectedDate,
         description: "Newly Added",
         id: DateTime.now().toString());
 
     setState(() {
       _transactions.add(newTx);
+    });
+  }
+  void _deleteTransaction(String id){
+    setState(() {
+      _transactions.removeWhere((element) => element.id == id);
     });
   }
 }
