@@ -4,13 +4,13 @@ import 'package:intl/intl.dart';
 
 class TransWidget extends StatelessWidget {
   final Transaction trans;
-
-  TransWidget(this.trans);
+  final Function _deleteTransaction;
+  TransWidget(this.trans,this._deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
       elevation: 4,
       child: ListTile(
         leading: CircleAvatar(
@@ -32,9 +32,15 @@ class TransWidget extends StatelessWidget {
             ),
           ),
         ),
-        title: Text(trans.title.toString(), style: Theme.of(context).textTheme.headline6,),
-        subtitle: Text(
-          DateFormat.yMMMMd().format(trans.timeStamp)
+        title: Text(
+          trans.title.toString(),
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        subtitle: Text(DateFormat.yMMMMd().format(trans.timeStamp)),
+        trailing: IconButton(
+          icon: Icon(Icons.delete),
+          color: Theme.of(context).errorColor,
+          onPressed: () => _deleteTransaction(trans.id),
         ),
       ),
     );
