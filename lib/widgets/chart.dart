@@ -21,8 +21,7 @@ class ChartWidget extends StatelessWidget {
         if (itemDate == weekDate)
           totalSum += item.amount;
       }
-      print(DateFormat.E().format(weekDay).substring(0, 1));
-      print(totalSum.toString());
+
       return {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         "amount": totalSum
