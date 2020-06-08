@@ -23,7 +23,12 @@ class MyApp extends StatelessWidget {
                   fontFamily: "OpenSans",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
-            ),
+          bodyText2: TextStyle(
+            fontFamily: "OpenSans",
+            fontSize: 14,
+          ),
+          button: TextStyle(color:Colors.white),
+        ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(fontFamily: "OpenSans", fontSize: 20),
