@@ -23,12 +23,12 @@ class MyApp extends StatelessWidget {
                   fontFamily: "OpenSans",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
-          bodyText2: TextStyle(
-            fontFamily: "OpenSans",
-            fontSize: 14,
-          ),
-          button: TextStyle(color:Colors.white),
-        ),
+              bodyText2: TextStyle(
+                fontFamily: "OpenSans",
+                fontSize: 14,
+              ),
+              button: TextStyle(color: Colors.white),
+            ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(fontFamily: "OpenSans", fontSize: 20),
@@ -46,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
+  bool _chartView = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((element) {
@@ -56,31 +57,89 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(title: Text('Flutter App'), actions: <Widget>[
+      IconButton(
+          icon: Icon(Icons.add), onPressed: () => _startNewTransaction(context))
+    ]);
+
+    final _scaffoldSize = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter App'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startNewTransaction(context),
-          )
-        ],
-      ),
-      //
+      appBar: appBar,
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            ChartWidget(_recentTransactions),
-            TransactionList(_transactions,_deleteTransaction),
-          ],
-        ),
-      ),
+          child: MediaQuery.of(context).orientation == Orientation.landscape
+              ? _landscapeMode(_scaffoldSize)
+              : _portraitMode(_scaffoldSize)
+
+//        Column(
+//          children: <Widget>[
+//            Row(
+//              mainAxisAlignment: MainAxisAlignment.center,
+//              children: <Widget>[
+//                Text("Show Chart",
+//                    style: TextStyle(color: Theme.of(context).primaryColor)),
+//                Switch(
+//                    value: _chartView,
+//                    onChanged: (value) {
+//                      setState(() => _chartView = value);
+//                    }),
+//              ],
+//            ),
+//            _chartView
+//                ? Container(
+//                    height: (_scaffoldSize) * 0.25,
+//                    child: ChartWidget(_recentTransactions))
+//                : Container(
+//                    height: (_scaffoldSize) * 0.75,
+//                    child: TransactionList(_transactions, _deleteTransaction)),
+//          ],
+//        ),
+          ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _startNewTransaction(context),
       ),
     );
+  }
+
+  Widget _portraitMode(var _scaffoldSize) {
+    return Column(children: <Widget>[
+      _recentTransactions.isEmpty
+          ? Container(
+              height: (_scaffoldSize) * 0.25,
+              width: double.infinity,
+            )
+          : Container(
+              height: (_scaffoldSize) * 0.25,
+              child: ChartWidget(_recentTransactions)),
+      Container(
+          height: (_scaffoldSize) * 0.75,
+          child: TransactionList(_transactions, _deleteTransaction))
+    ]);
+  }
+
+  Widget _landscapeMode(var _scaffoldSize) {
+    return Column(children: <Widget>[
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        Text("Show Chart",
+            style: TextStyle(color: Theme.of(context).primaryColor)),
+        Switch(
+            value: _chartView,
+            onChanged: (value) {
+              setState(() => _chartView = value);
+            }),
+      ]),
+      _chartView
+          ? Container(
+              height: (_scaffoldSize) * 0.75,
+              child: ChartWidget(_recentTransactions))
+          : Container(
+              height: (_scaffoldSize) * 0.75,
+              child: TransactionList(_transactions, _deleteTransaction))
+    ]);
   }
 
   void _startNewTransaction(BuildContext context) {
@@ -96,7 +155,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _addNewTransaction({@required String title, @required double amount,@required DateTime selectedDate}) {
+  void _addNewTransaction(
+      {@required String title,
+      @required double amount,
+      @required DateTime selectedDate}) {
     final newTx = Transaction(
         title: title,
         amount: amount,
@@ -108,7 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
       _transactions.add(newTx);
     });
   }
-  void _deleteTransaction(String id){
+
+  void _deleteTransaction(String id) {
     setState(() {
       _transactions.removeWhere((element) => element.id == id);
     });
