@@ -68,35 +68,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: appBar,
-      body: SingleChildScrollView(
-          child: MediaQuery.of(context).orientation == Orientation.landscape
-              ? _landscapeMode(_scaffoldSize)
-              : _portraitMode(_scaffoldSize)
-
-//        Column(
-//          children: <Widget>[
-//            Row(
-//              mainAxisAlignment: MainAxisAlignment.center,
-//              children: <Widget>[
-//                Text("Show Chart",
-//                    style: TextStyle(color: Theme.of(context).primaryColor)),
-//                Switch(
-//                    value: _chartView,
-//                    onChanged: (value) {
-//                      setState(() => _chartView = value);
-//                    }),
-//              ],
-//            ),
-//            _chartView
-//                ? Container(
-//                    height: (_scaffoldSize) * 0.25,
-//                    child: ChartWidget(_recentTransactions))
-//                : Container(
-//                    height: (_scaffoldSize) * 0.75,
-//                    child: TransactionList(_transactions, _deleteTransaction)),
-//          ],
-//        ),
-          ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+            child: MediaQuery.of(context).orientation == Orientation.landscape
+                ? _landscapeMode(_scaffoldSize)
+                : _portraitMode(_scaffoldSize)),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -144,15 +121,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _startNewTransaction(BuildContext context) {
     showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return GestureDetector(
-          onTap: () {},
-          behavior: HitTestBehavior.opaque,
-          child: AddTransaction(_addNewTransaction),
-        );
-      },
-    );
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext ctx) {
+          return GestureDetector(
+              onTap: () {},
+              behavior: HitTestBehavior.opaque,
+              child: SingleChildScrollView(
+                child: Container(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: AddTransaction(_addNewTransaction)),
+              ));
+        });
   }
 
   void _addNewTransaction(
